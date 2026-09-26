@@ -49,7 +49,7 @@ public class WordGuessGame extends JFrame {
     public WordGuessGame() {
         super("Word Guess Helper");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(900, 650);
+        setSize(900, 780);
         setLocationRelativeTo(null);
 
         cardLayout = new CardLayout();
@@ -73,8 +73,8 @@ public class WordGuessGame extends JFrame {
 
         JLabel title = buildTitleLabel();
 
-        JButton wordleBtn = buildImageButton("wordle.gif", "Wordle (5 letters, 6 tries)");
-        JButton jeffBtn = buildImageButton("jeff.gif", "Jeff Goldblum (12 letters, 3 tries)");
+        JButton wordleBtn = buildImageButton("wordle.gif", "Wordle (5 letters, 6 tries)", 1.0 / 3, 1.0);
+        JButton jeffBtn = buildImageButton("jeff.gif", "Jeff Goldblum (12 letters, 3 tries)", 1.0 / 3, 1.0);
         for (JButton b : new JButton[]{wordleBtn, jeffBtn}) {
             if (b.getIcon() == null) {
                 b.setFont(new Font("SansSerif", Font.PLAIN, 18));
@@ -126,8 +126,8 @@ public class WordGuessGame extends JFrame {
      * only reads the first frame of an animated GIF, so a cropped .gif will
      * display as a static image rather than animating.
      */
-    private JButton buildImageButton(String imageFile, String fallbackText) {
-        BufferedImage cropped = loadMiddleThird(imageFile);
+    private JButton buildImageButton(String imageFile, String fallbackText, double widthFraction, double heightFraction) {
+        BufferedImage cropped = loadMiddleSlice(imageFile, widthFraction, heightFraction);
         JButton button;
         if (cropped != null) {
             BufferedImage sized = scaleToMaxWidth(cropped, MAX_BUTTON_ICON_WIDTH);
@@ -144,8 +144,13 @@ public class WordGuessGame extends JFrame {
         return button;
     }
 
-    /** Loads imageFile and crops out only the middle third of its width (full height). */
-    private BufferedImage loadMiddleThird(String imageFile) {
+    /**
+     * Loads imageFile and crops out the centered slice that is widthFraction
+     * of its full width and heightFraction of its full height - e.g.
+     * widthFraction 1.0/6 keeps the middle sixth horizontally, heightFraction
+     * 1.0/5 keeps the middle fifth vertically.
+     */
+    private BufferedImage loadMiddleSlice(String imageFile, double widthFraction, double heightFraction) {
         try {
             BufferedImage full = ImageIO.read(new File(imageFile));
             if (full == null) {
@@ -153,12 +158,20 @@ public class WordGuessGame extends JFrame {
             }
             int width = full.getWidth();
             int height = full.getHeight();
-            int thirdWidth = Math.max(1, width / 3);
-            int x = thirdWidth; // skip the first third
-            if (x + thirdWidth > width) {
-                thirdWidth = width - x; // guard against rounding
+
+            int sliceWidth = Math.max(1, (int) Math.round(width * widthFraction));
+            int x = (width - sliceWidth) / 2; // center horizontally
+            if (x + sliceWidth > width) {
+                sliceWidth = width - x;
             }
-            return full.getSubimage(x, 0, thirdWidth, height);
+
+            int sliceHeight = Math.max(1, (int) Math.round(height * heightFraction));
+            int y = (height - sliceHeight) / 2; // center vertically
+            if (y + sliceHeight > height) {
+                sliceHeight = height - y;
+            }
+
+            return full.getSubimage(x, y, sliceWidth, sliceHeight);
         } catch (IOException e) {
             return null;
         }
@@ -227,7 +240,7 @@ public class WordGuessGame extends JFrame {
                         + "Click \"Update Results\" any time.</html>");
         instructions.setFont(new Font("SansSerif", Font.PLAIN, 13));
 
-        JButton backBtn = buildImageButton("back.png", "Back to Menu");
+        JButton backBtn = buildImageButton("back.png", "Back to Menu", 1.0 / 6, 1.0 / 2);
         backBtn.addActionListener(e -> cardLayout.show(cards, "menu"));
 
         top.add(instructions, BorderLayout.CENTER);
@@ -245,12 +258,9 @@ public class WordGuessGame extends JFrame {
             rowsPanel.add(Box.createVerticalStrut(8));
         }
 
-        JScrollPane scroll = new JScrollPane(rowsPanel);
-        scroll.setBorder(null);
-        scroll.getVerticalScrollBar().setUnitIncrement(16);
         JPanel wrapper = new JPanel(new BorderLayout());
         wrapper.setBackground(BACKGROUND);
-        wrapper.add(scroll, BorderLayout.CENTER);
+        wrapper.add(rowsPanel, BorderLayout.CENTER);
         return wrapper;
     }
 
@@ -339,9 +349,9 @@ public class WordGuessGame extends JFrame {
 
         JPanel buttonRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
         buttonRow.setBackground(BACKGROUND);
-        JButton updateBtn = buildImageButton("update.png", "Update Results");
+        JButton updateBtn = buildImageButton("update.png", "Update Results", 1.0 / 6, 1.0 / 2);
         updateBtn.addActionListener((ActionEvent e) -> updateResults());
-        JButton resetBtn = buildImageButton("reset.png", "Reset All Boxes");
+        JButton resetBtn = buildImageButton("reset.png", "Reset All Boxes", 1.0 / 6, 1.0 / 2);
         resetBtn.addActionListener(e -> resetAll());
         resultCountLabel = new JLabel("Possible words: --");
         resultCountLabel.setFont(new Font("SansSerif", Font.BOLD, 15));
