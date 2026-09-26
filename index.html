@@ -9,10 +9,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --beige: #EDE7D8;
-    --beige-panel: #D9C5B4;
-    --pink: #EFC6CE;
-    --pink-deep: #E3A6B3;
+    --beige: #E5DFD6;
+    --beige-panel: #D1A9A5;
+    --pink: #7A816C;
+    --pink-deep: #AE6965;
     --ink: #16140F;
     --ink-soft: #57503F;
     --line: rgba(22,20,15,0.14);
@@ -85,27 +85,20 @@
   /* ---------- Hero ---------- */
 
   .hero{
-    padding: 96px 0 88px;
-    position: relative;
-    overflow: hidden;
+    padding: 110px 0 96px;
   }
 
   .hero .wrap{
-    display: grid;
-    grid-template-columns: 1.3fr 1fr;
-    gap: 48px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-  }
-
-  .hero .kicker{
-    color: var(--ink-soft);
-    font-size: 1rem;
-    margin-bottom: 18px;
+    text-align: center;
   }
 
   .hero h1{
-    font-size: clamp(2.6rem, 5vw, 4.4rem);
-    line-height: 1.02;
+    font-size: clamp(3rem, 6.5vw, 5.2rem);
+    line-height: 1.05;
+    max-width: 18ch;
   }
 
   .hero h1 em{
@@ -113,18 +106,10 @@
     color: var(--pink-deep);
   }
 
-  .hero p.lede{
-    margin-top: 26px;
-    max-width: 46ch;
-    font-size: 1.08rem;
-    color: var(--ink-soft);
-  }
-
   .hero .actions{
     margin-top: 36px;
     display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .btn{
@@ -134,7 +119,7 @@
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 500;
-    transition: transform 0.15s ease, background 0.15s ease;
+    transition: background 0.15s ease;
   }
 
   .btn-primary{
@@ -143,41 +128,6 @@
   }
 
   .btn-primary:hover{ background: #000; }
-
-  .btn-ghost{
-    border: 1px solid var(--line);
-    color: var(--ink);
-  }
-
-  .btn-ghost:hover{ border-color: var(--ink); }
-
-  .hero-mark{
-    aspect-ratio: 4 / 5;
-    background: var(--pink);
-    border-radius: 18px;
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    padding: 28px;
-  }
-
-  .hero-mark::before{
-    content: "";
-    position: absolute;
-    inset: 20px;
-    border: 1px solid rgba(22,20,15,0.22);
-    border-radius: 10px;
-  }
-
-  .hero-mark span{
-    font-family: 'Bodoni Moda', serif;
-    font-style: italic;
-    font-size: 1.05rem;
-    color: var(--ink);
-    background: var(--beige);
-    padding: 10px 16px;
-    border-radius: 999px;
-  }
 
   /* ---------- Section shared ---------- */
 
@@ -199,6 +149,11 @@
     color: var(--ink-soft);
     max-width: 40ch;
     margin: 10px 0 0;
+  }
+
+  #work .section-head h2{
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    color: var(--pink-deep);
   }
 
   /* ---------- Work ---------- */
@@ -292,7 +247,8 @@
   }
 
   .contact h2{
-    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    color: var(--pink-deep);
   }
 
   .contact-links{
@@ -311,6 +267,10 @@
 
   .contact-links a:hover{ border-color: var(--ink); }
 
+  .contact-spacer{
+    margin: 0 0 8px;
+  }
+
   footer{
     padding: 28px 0 40px;
     color: var(--ink-soft);
@@ -322,8 +282,6 @@
   /* ---------- Responsive ---------- */
 
   @media (max-width: 760px){
-    .hero .wrap{ grid-template-columns: 1fr; }
-    .hero-mark{ order: -1; aspect-ratio: 16 / 9; }
     .contact-inner{ grid-template-columns: 1fr; }
     .project, .project.reverse{ grid-template-columns: 1fr; padding: 40px 0; }
     .project.reverse .project-info, .project.reverse .project-media{ order: initial; }
@@ -357,14 +315,9 @@
 
 <section class="hero">
   <div class="wrap">
-    <div>
-      <h1><em>portfolio</em> of my personal projects.</h1>
-      <div class="actions">
-        <a class="btn btn-primary" href="#contact">Get in touch</a>
-      </div>
-    </div>
-    <div class="hero-mark">
-      <span>Est. 2024</span>
+    <h1><em>portfolio</em> of my personal projects.</h1>
+    <div class="actions">
+      <a class="btn btn-primary" href="#contact">Get in touch</a>
     </div>
   </div>
 </section>
@@ -383,8 +336,8 @@
         <a class="project-link" href="#">View project →</a>
       </div>
       <div class="project-media">
-        <img src="orchard.gif" alt="Word Guess Helper project preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="media-placeholder">Drop <code>orchard.gif</code> next to this file</div>
+        <img src="word-guess-helper.gif" alt="Word Guess Helper project preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="media-placeholder">Drop <code>word-guess-helper.gif</code> next to this file</div>
       </div>
     </div>
 
@@ -395,8 +348,8 @@
         <a class="project-link" href="#">View project →</a>
       </div>
       <div class="project-media">
-        <img src="northwind.gif" alt="Pet Adoption project preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="media-placeholder">Drop <code>northwind.gif</code> next to this file</div>
+        <img src="pet-adoption-simulator.gif" alt="Pet Adoption Simulator project preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="media-placeholder">Drop <code>pet-adoption-simulator.gif</code> next to this file</div>
       </div>
     </div>
 
@@ -421,15 +374,17 @@
       <h2>About</h2>
     </div>
     <div class="about-grid">
-      <p>I'm a freshman Computer Science student who loves turning creative ideas into functional code. I enjoy building projects that fit my interests and make everyday life a little easier or more fun.
+      <p>I'm a freshman Computer Science student who loves turning creative ideas into functional code. I enjoy building projects that fit my interests and make everyday life a little easier or more fun.</p>
       <p>Right now, I'm expanding my skills by exploring new programming languages and diving into AI. I'm excited to keep growing as a developer, one project at a time.</p>
     </div>
   </div>
 </section>
 
+<section class="contact" id="contact">
   <div class="wrap contact-inner">
     <h2>Learn more<br>about me.</h2>
     <div class="contact-links">
+      <p class="contact-spacer">&nbsp;</p>
       <a href="mailto:sarahtseng7@ucla.edu">sarahtseng7@ucla.edu</a>
       <a href="#">LinkedIn</a>
       <a href="https://www.instagram.com/sarahtseng7">Instagram</a>
