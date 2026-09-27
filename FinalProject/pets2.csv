@@ -1,8 +1,0 @@
-name,age,type,imagePath,similarityScore,daysInShelter,specialNeeds,energyLevel,petID,breed
-Charlie,2,Dog,dog2.png,90.1,9,,7,108,Golden Retriever
-Lucy,5,Cat,cat3.png,74.6,18,Arthritis,3,109,Ragdoll
-Daisy,1,Dog,dog1.png,86.3,4,,8,110,Poodle
-Oliver,3,Cat,cat1.png,81.7,11,,5,111,British Shorthair
-Coco,4,Bird,bird2.png,79.4,14,,4,112,Cockatiel
-Bailey,6,Dog,dog3.png,67.8,28,Blind,2,113,Bulldog
-Nala,2,Cat,cat2.png,93.0,6,,7,114,Bengal
