@@ -202,10 +202,13 @@
   }
 
   .project-media img{
+    
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
+
+  .project-media.ratio-16-9{ aspect-ratio: 16 / 9; }
 
   .media-placeholder{
     display: none;
@@ -335,7 +338,7 @@
         <p>Cheat program to help me solve the daily wordle, don't wordle, and the jeffgoldblumble.</p>
         <a class="project-link" href="https://github.com/sarahtseng7/Word-Guess-Helper.git">View project →</a>
       </div>
-      <div class="project-media">
+      <div class="project-media ratio-16-9">
         <img src="word-guess-helper.gif" alt="Word Guess Helper project preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
         <div class="media-placeholder">Drop <code>word-guess-helper.gif</code> next to this file</div>
       </div>
